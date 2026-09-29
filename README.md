@@ -1,53 +1,81 @@
-# فیلم‌جو | Movie Recommender
+# Film-Jo | Movie Recommender
 
-یک تجربهٔ فارسی و راست‌چین برای پیدا کردن فیلم بر اساس حال‌وهوا، مناسبت، ژانر، بازهٔ زمانی، رده‌بندی سنی و حال‌وهوای خاص فیلم.
+A Persian, right-to-left movie discovery app that recommends films based on your mood, occasion, favorite genres, release period, age rating, and preferred movie themes.
 
-## اجرا
+## Features
 
-1. Node.js نسخهٔ 22 یا جدیدتر نصب باشد.
-2. وابستگی‌ها را نصب کن:
+- Cinematic spotlight slider with popular TMDB movies, poster selection, playback controls, auto-pause, and reduced-motion support
+- Six-step quiz with multi-select genres and optional filters
+- Personalized recommendations ranked from TMDB results, with duplicate filtering
+- Multi-page discovery, relaxed filters when results run low, and a fresh recommendation cycle after a list is exhausted
+- TMDB movie data enriched with OMDb details when available, without adding duplicate search results
+- Persian movie summaries from TMDB translations, with a translation fallback and browser-side caching
+- Movie details, cast and crew, ratings, and YouTube trailers when available
+- Email sign-up and login with Supabase Auth
+- Favorites saved in the browser
+- Responsive Persian and RTL interface
+
+## Tech Stack
+
+- React 19 and TypeScript
+- Vite
+- TMDB API
+- OMDb API
+- Supabase Auth
+
+## Requirements
+
+- Node.js 22 or newer
+- API credentials for TMDB and OMDb
+- A Supabase project if you want to use sign-up and login
+
+## Getting Started
+
+1. Fork or clone this repository, then open the project directory.
+2. Install dependencies:
 
    ```bash
    npm install
    ```
 
-3. از [TMDB](https://www.themoviedb.org/settings/api) و [OMDb](https://www.omdbapi.com/apikey.aspx) کلید API بگیر. فایل `.env.example` را به `.env.local` کپی کن و مقادیر `VITE_TMDB_API_KEY` و `VITE_OMDB_API_KEY` را وارد کن. اگر `.env.local` را از قبل داری، کلیدهای جدید را به همان فایل اضافه کن و مقادیر فعلی را نگه دار.
-4. برای ورود، یک [پروژهٔ Supabase](https://supabase.com/dashboard) بساز، URL و Publishable Key را از بخش Connect بردار و `VITE_SUPABASE_URL` و `VITE_SUPABASE_PUBLISHABLE_KEY` را در `.env.local` بگذار. ورود و ساخت حساب با ایمیل/گذرواژه را در Auth فعال کن و آدرس محلی و آدرس سایتت را در Redirect URLs مجاز اضافه کن.
-5. برنامه را اجرا کن:
+3. Copy `.env.example` to `.env.local` and add your own API credentials:
+
+   ```env
+   VITE_TMDB_API_KEY=your_tmdb_api_key
+   VITE_OMDB_API_KEY=your_omdb_api_key
+   VITE_SUPABASE_URL=https://your-project.supabase.co
+   VITE_SUPABASE_PUBLISHABLE_KEY=your-supabase-publishable-key
+   ```
+
+   Get a TMDB API key from [TMDB](https://www.themoviedb.org/settings/api) and an OMDb API key from [OMDb](https://www.omdbapi.com/apikey.aspx). To enable login, create a project in [Supabase](https://supabase.com/dashboard), enable email/password authentication, and add your local and deployed URLs to the allowed redirect URLs.
+
+4. Start the development server:
 
    ```bash
    npm run dev
    ```
 
-برای ساخت نسخهٔ نهایی از `npm run build` و برای پیش‌نمایش آن از `npm run preview` استفاده کن.
+5. Create a production build or preview it locally:
 
-## امنیت کلید API
+   ```bash
+   npm run build
+   npm run preview
+   ```
 
-فایل `.env.local` در Git نادیده گرفته شده و نباید در GitHub قرار بگیرد. کلیدهای TMDB و OMDb در مرورگر قابل مشاهده‌اند؛ در صورت افشای ناخواسته آن‌ها را عوض کن. Supabase URL و Publishable Key برای اپ کلاینت هستند؛ کلید مخفی/Service Role را هرگز در این پروژه نگذار. هر کسی که پروژه را فورک می‌کند باید کلیدهای API و تنظیمات Supabase خودش را در فایل محلی وارد کند.
+## Forks and API Credentials
 
-## امکانات
+`.env.local` is ignored by Git and is not included in this repository. The `.env.example` file contains placeholders only. Anyone running a fork must create their own `.env.local` and provide their own TMDB and OMDb API keys and, if needed, their own Supabase project settings. Do not commit `.env.local` or put real credentials in source code.
 
-- ویترین سینمایی اسلایدی با تصویرهای محبوب TMDB، کنترل قبلی/بعدی، انتخاب پوستر، توقف خودکار و پشتیبانی از کاهش حرکت
-- آزمون شش‌مرحله‌ای با انتخاب چند ژانر و فیلترهای اختیاری
-- پیشنهادهای TMDB با رتبه‌بندی متناسب با سلیقه و حذف فیلم‌های تکراری
-- استفاده از IMDb ID فیلم‌های TMDB برای درخواست جزئیات OMDb؛ OMDb فقط اطلاعات همان فیلم را تکمیل می‌کند و نتیجهٔ جداگانه به فهرست اضافه نمی‌کند
-- جایگزینی پوستر، خلاصه، مدت یا رده‌بندی ناقص TMDB با دادهٔ OMDb و نمایش امتیاز IMDb، Metascore، جوایز و فروش گیشه در صورت وجود
-- خلاصهٔ فارسی از ترجمه‌های TMDB و در صورت نبود، سرویس ترجمهٔ عمومی دریافت و برای استفادهٔ دوباره در مرورگر ذخیره می‌شود
-- دریافت پیشنهادها از چند صفحهٔ TMDB؛ با تمام‌شدن فهرست متناسب، فیلترها بازتر می‌شوند و چرخهٔ تازه شروع می‌شود
-- ورود و ساخت حساب ایمیلی با Supabase Auth (بعد از تنظیم متغیرهای Supabase)
-- بازکردن تدریجی فیلترها اگر نتیجه‌ای پیدا نشود
-- جزئیات فیلم، عوامل، بازیگران و تریلر در صورت موجودبودن
-- ذخیرهٔ علاقه‌مندی‌ها در مرورگر
-- رابط فارسی، راست‌چین و واکنش‌گرا
+Vite exposes variables prefixed with `VITE_` to browser code. TMDB and OMDb keys used by this frontend can therefore be inspected by visitors of a deployed site. If you need to keep those provider keys confidential in production, route API requests through a backend or serverless function. A Supabase publishable key is intended for client-side use; protect data with Row Level Security (RLS) and never put a Supabase secret or service-role key in this frontend.
 
-## ترجمهٔ خلاصه‌ها
+## Movie Summary Translation
 
-برنامه اول ترجمهٔ فارسی ثبت‌شده در TMDB را بررسی می‌کند. اگر خلاصه فقط انگلیسی باشد، آن را از سرویس MyMemory به فارسی برمی‌گرداند و در مرورگر cache می‌کند تا برای همان فیلم دوباره درخواست نفرستد. سرویس عمومی ممکن است سهمیه یا محدودیت موقت داشته باشد؛ در آن حالت متن انگلیسی نشان داده نمی‌شود و پیام فارسی جایگزین می‌شود.
+The app first checks for a Persian translation on TMDB. If an overview is only available in another language, it requests a Persian translation from the public MyMemory service and caches the result in the browser. The public translation service may have temporary limits; if translation is unavailable, the app displays a Persian status message instead of an English synopsis.
 
-## ورود کاربران
+## Authentication and Favorites
 
-ورود و ثبت‌نام ایمیلی با Supabase Auth انجام می‌شود. برای فعال‌شدنش باید پروژهٔ Supabase و دو مقدار عمومی آن در `.env.local` تنظیم شوند. فهرست علاقه‌مندی‌ها فعلاً در مرورگر ذخیره می‌شود و بین دستگاه‌ها با حساب همگام‌سازی نمی‌شود.
+Email sign-up and login use Supabase Auth and require the Supabase values in `.env.local`. Favorites are currently stored in the browser and are not synchronized between devices or accounts.
 
-## اعتبار داده‌ها
+## Data Attribution
 
-این محصول از API و تصاویر TMDB و اطلاعات OMDb استفاده می‌کند. این محصول توسط TMDB تأیید یا وابسته به TMDB نیست.
+This product uses the TMDB API and images, and OMDb movie information. This product is not endorsed or certified by TMDB.
